@@ -52,6 +52,7 @@ export function loadOptions() {
     return axios({
       url: settings.getOptionsApi,
       method: 'GET',
+      crossDomain: true,
       headers: {
         'Content-Type': "application/json"
       }
@@ -64,7 +65,7 @@ export function loadOptions() {
           });
         }
         dispatch(loadOptionsSuccess(response.data,userDefaults));
-        dispatch(updatePrice());
+        //dispatch(updatePrice());
       });
     });
   };

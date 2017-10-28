@@ -16,9 +16,14 @@ import {loadTemplates} from './actions/templateActions';
 import {saveConfiguration} from './actions/saveActions';
 import './styles/styles.css';
 import initialState from './reducers/initialState';
+import configuratorSettings from './settings';
 import db from './localstorage/dexieDB';
 
-const store = configureStore(initialState);
+const store = () => {
+  initialState.settings = configuratorSettings;
+  configureStore(initialState);
+}
+
 window.reduxStore = store;
 
 export function init(element, templates, config) {

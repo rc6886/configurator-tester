@@ -28,10 +28,10 @@ function ensureSettingExists(config, name) {
 
 // thunks
 export function loadSettings(config) {
-  ensureSettingExists(config, "configuratorMode");
+  // ensureSettingExists(config, "configuratorMode");
   ensureSettingExists(config, "siteId");
   ensureSettingExists(config, "productId");
-  ensureSettingExists(config, "updateConfiguratorApi");
+  // ensureSettingExists(config, "updateConfiguratorApi");
   ensureSettingExists(config, "getOptionsApi");
 
   return { 

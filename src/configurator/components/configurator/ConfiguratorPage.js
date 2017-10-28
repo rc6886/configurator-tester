@@ -1,9 +1,11 @@
+import axios from 'axios';
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as optionActions from '../../actions/optionActions';
 import * as choiceActions from '../../actions/choiceActions';
 import Summary from './Summary';
+import { options } from '../../templates/garageDoors';
 
 class ConfiguratorPage extends React.Component {
   constructor(props,context) {
@@ -20,12 +22,28 @@ class ConfiguratorPage extends React.Component {
       <div>
         This is the GCC.Configurator.
         {
-          this.props.configurator.groups.sort((a, b) => {
-            a.sequenceNumber - b.sequenceNumber;
-          })
+          this.props.configurator.groups
+          .sort((a, b) => a.sequenceNumber - b.sequenceNumber)
           .map((g) => {
-            let Og = this.props.templates.groups.find((fg) => fg.name === g.name).template;
-            return (<Og key={g.sequenceNumber} group={g} onChange={this.choiceChanged} />);
+            const OptionGroup = this.props.templates.groups.find((fg) => fg.name === g.name).template;
+            
+            return (
+              <OptionGroup>
+                {
+                  this.props.configurator.options &&
+                  this.props.configurator.options
+                  .map((option) => {
+                    const optionTemplates = options;
+                    const optionTemplate = optionTemplates
+                      .find(template => template.name === option.internalName);
+
+                    return optionTemplate 
+                      ? optionTemplate.template
+                      : null;
+                  })
+                }
+              </OptionGroup>
+            );
           })
         }
       </div>
